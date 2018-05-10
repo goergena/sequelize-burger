@@ -1,0 +1,78 @@
+<div class="jumbotron">
+<h1>
+  Burger Party
+  </h1>
+  </div>
+
+<div class="row">
+
+  <div class="col-md-6">
+    <h3>Available Burgers</h3>
+    {{#each burgs}} {{#unless eaten}}
+    <p>
+      {{id}}. {{burger}}
+      <button data-burgid="{{id}}" class="eat btn btn-primary">Eat the burger</button>
+    </p>
+    {{/unless}} {{/each}}
+  </div>
+
+
+  <div class="col-md-6">
+    <h3>Eaten Burgers</h3>
+    {{#each burgs}} {{#if eaten}}
+    <p>
+       {{burger}}
+
+    </p>
+    {{/if}} {{/each}}
+  </div>
+</div>
+
+
+<form id="addburger"> 
+  <div class="form-group">
+    <label for="burgerInput">Add a Burger</label>
+    <input type="text" class="form-control" id="burgerInput">
+  </div>
+
+  <button type="submit" class="btn btn-secondary">Submit</button>
+</form>
+
+
+<script type = "text/javascript">
+
+
+  $("#addburger").on("submit", function (event) {
+    event.preventDefault();
+
+    var newBurg = {
+      burgerTOWN: $("#burgerInput").val().trim()
+    };
+    $.ajax("/burgers", {
+      type: "POST",
+      data: newBurg
+    }).then(
+      function () {
+
+        location.reload();
+      }
+    );
+  });
+
+
+  $(".eat").on("click", function (event) {
+
+    event.preventDefault();
+    var id = $(this).data("burgid");
+
+    $.ajax("/burgers/" + id, {
+      type: "PUT",
+
+    }).then(
+      function () {
+        console.log("updated id ", id);
+        location.reload();
+      }
+    );
+  });
+</script>
