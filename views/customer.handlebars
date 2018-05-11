@@ -1,0 +1,52 @@
+<div class="jumbotron">
+    <h2>
+        Customers
+    </h2>
+    <a href="/"><button class="btn btn-danger">Burgers</button></a>
+</div>
+
+<div class="row">
+
+  <div class="col-md-6">
+    {{#each custs}} 
+        <p>
+            {{name}}
+        </p>
+    {{/each}}
+  </div>
+
+</div>
+
+
+<form id="addCust"> 
+  <div class="form-group">
+    <label for="custInput">New Customer</label>
+    <input type="text" class="form-control" id="custInput">
+  </div>
+
+  <button type="submit" class="btn btn-secondary">Submit</button>
+</form>
+
+
+<script type = "text/javascript">
+
+
+  $("#addCust").on("submit", function (event) {
+    event.preventDefault();
+
+    var newCustomer= {
+      name: $("#custInput").val().trim()
+    };
+    $.ajax("/customers", {
+      type: "POST",
+      data: newCustomer
+    }).then(
+      function () {
+
+        location.reload();
+      }
+    );
+  });
+
+
+</script>

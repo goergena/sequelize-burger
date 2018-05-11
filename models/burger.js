@@ -10,5 +10,17 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: false
     }
   });
+
+
+  Burger.associate = function (models) {
+    if (Burger.eaten===true) {
+      Burger.belongsTo(models.Customer, {
+        foreignKey: {
+          allowNull: false
+        }
+      });
+    };
+  }
+
   return Burger;
 };

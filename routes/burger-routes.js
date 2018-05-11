@@ -1,7 +1,7 @@
 var db = require("../models");
 
 module.exports = function (app) {
-
+/*
   app.get("/", function (req, res) {
     db.Burger.findAll({})
       .then(function (dbBurger) {
@@ -9,17 +9,8 @@ module.exports = function (app) {
           burgs: dbBurger
         });
       });
-  });
+  }); */
 
-  app.get("/customers", function (req, res) {
-    db.Customer.findAll({})
-      .then(function (dbCustomer) {
-        res.render("customer", {
-          custs: dbCustomer
-        });
-      });
-  });
-/*
   app.post("/burgers", function (req, res) {
     console.log(req.body);
     db.Burger.create({
@@ -43,5 +34,4 @@ module.exports = function (app) {
         res.json(dbBurger);
       });
   });
-  */
 };
